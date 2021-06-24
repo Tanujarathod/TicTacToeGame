@@ -1,0 +1,152 @@
+ls = [[1,2,3], [4,5,6], [7,8,9]]
+symbol = "X"
+total_turns = 0
+player_names = [None]
+player_turn = 1
+
+
+def show_mat():
+    i=0
+    while i<=2:
+        j = 0
+        while j<=2:
+            print(ls[i][j], end="\t")
+            j=j+1
+        print()
+        i = i + 1
+
+def check_winner():
+    found_winner = False
+    if ls[0][0] == ls[1][1] and ls[1][1] == ls[2][2]:
+        found_winner = True
+    elif ls[2][0] == ls[1][1] and ls[0][2] == ls[1][1]:
+        found_winner = True
+    elif ls[0][0] == ls[0][1] and ls[0][0] == ls[0][2]:
+        found_winner = True
+    elif ls[1][0] == ls[1][1] and ls[1][0] == ls[1][2]:
+        found_winner = True
+    elif ls[2][0] == ls[2][1] and ls[2][0] == ls[2][2]:
+        found_winner = True
+    elif ls[0][0] == ls[1][0] and ls[0][0] == ls[2][0]:
+        found_winner = True
+    elif ls[0][1] == ls[1][1] and ls[0][1] == ls[2][1]:
+        found_winner = True
+    elif ls[0][2] == ls[1][2] and ls[0][2] == ls[2][2]:
+        found_winner = True
+
+    if found_winner == True and symbol == "X":
+        print("PLAYER 1 WINS... !!")
+    elif found_winner == True and symbol == "O":
+        print("PLAYER 2 WINS... !!")
+
+    return found_winner
+
+def check_draw():
+    if total_turns==9:
+        print("MATCH DRAW... !!")
+        return True
+    else:
+        return False
+
+
+def set_symbol(box_number):
+    if box_number == 1:
+        ls[0][0] = symbol
+    elif box_number == 2:
+        ls[0][1] = symbol
+    elif box_number == 3:
+        ls[0][2] = symbol
+    elif box_number == 4:
+        ls[1][0] = symbol
+    elif box_number == 5:
+        ls[1][1] = symbol
+    elif box_number == 6:
+        ls[1][2] = symbol
+    elif box_number == 7:
+        ls[2][0] = symbol
+    elif box_number == 8:
+        ls[2][1] = symbol
+    elif box_number == 9:
+        ls[2][2] = symbol
+    # continue in same pattern
+------------------------------------TIC TAC TOE GAME (MINI PROJECT)-------------------------------------------------------------------
+# begin you main area from here
+
+print("Enter name of player - 1")
+player_names.append(input())
+print("Enter name of player - 2")
+player_names.append(input())
+
+
+while True:
+    show_mat()
+    print(player_names[player_turn], ",Player your Turn")
+    print("Your symbol is X ") if player_turn == 1 else print("Your symbol is O")
+    print("Enter your BOX number")
+    box_num = int(input())
+    if box_num <= 0 and box_num>9:
+        print("Invalid Box number, Please Repeat your turn")
+        continue
+    set_symbol(box_num)
+    winner_result = check_winner()
+    if winner_result==True:
+        break
+
+    total_turns = total_turns + 1
+    draw_result = check_draw()
+    if draw_result == True:
+        break
+
+    # if no winner is found, or no draw happens, then change the player and symbol
+    if player_turn == 1:
+        player_turn = 2
+        symbol = "O"
+    elif player_turn == 2:
+        player_turn = 1
+        symbol = "X"
+
+
+OUTPUT:-
+
+Enter name of player - 1
+Shital
+Enter name of player - 2
+Tanuja
+1	2	3	
+4	5	6	
+7	8	9	
+Shital ,Player your Turn
+Your symbol is X 
+Enter your BOX number
+1
+X	2	3	
+4	5	6	
+7	8	9	
+Tanuja ,Player your Turn
+Your symbol is O
+Enter your BOX number
+3
+X	2	O	
+4	5	6	
+7	8	9	
+Shital ,Player your Turn
+Your symbol is X 
+Enter your BOX number
+5
+X	2	O	
+4	X	6	
+7	8	9	
+Tanuja ,Player your Turn
+Your symbol is O
+Enter your BOX number
+6
+X	2	O	
+4	X	O	
+7	8	9	
+Shital ,Player your Turn
+Your symbol is X 
+Enter your BOX number
+9
+PLAYER 1 WINS... !!
+
+Process finished with exit code 0
